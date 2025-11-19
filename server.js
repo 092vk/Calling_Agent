@@ -1,4 +1,3 @@
-// server.js
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -28,7 +27,6 @@ async function readRows(range='Sheet1!A2:K') {
 }
 
 async function updateRow(rowNumber, values) {
-  // rowNumber is the spreadsheet row (e.g. 2 for first data row)
   const range = `Sheet1!A${rowNumber}:G${rowNumber}`;
   await sheets.spreadsheets.values.update({
     spreadsheetId: SHEET_ID,
