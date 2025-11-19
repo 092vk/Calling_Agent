@@ -139,17 +139,14 @@ app.post('/webhook/bolna', async (req, res) => {
       return res.status(200).send('ok');
     }
 
-    // If status is completed, update call_status, result, updated_at
     if (status === 'completed') {
       const r = foundRow.row;
-      // r original: [id, phone, name, call_status, call_sid, result, updated_at]
       r[3] = status;
       r[5] = resultText || 'completed';
       r[6] = new Date().toISOString();
       r[7] = extracted_data.user_interest;
       await updateRow(foundRow.rowNumber, r);
     } else {
-      // For other statuses you might update call_status to 'ringing', 'in_progress' etc.
       const r = foundRow.row;
       r[3] = status;
       r[6] = new Date().toISOString();
@@ -165,5 +162,5 @@ app.post('/webhook/bolna', async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
-  console.log(`Expose webhook to internet (ngrok) and set webhook URL in Bolna dashboard to /webhook/bolna`);
+  console.log(`Expose webhook to internet (ngrok)`);
 });
